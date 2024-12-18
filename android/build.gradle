@@ -1,0 +1,39 @@
+// build.gradle (root project)
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.0.0'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+
+// Esta configuración permite que las dependencias de los subproyectos se resuelvan
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+
+// Asegúrate de evaluar el proyecto ":app"
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+// Configuración de tareas comunes, como la tarea de limpiar el proyecto
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '--no-jdk-image'
+}
