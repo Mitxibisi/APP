@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/evento.dart';
-import '../utils/color_picker';
+import '../utils/color_picker.dart';
 
 class EventoDialog extends StatefulWidget {
   final Evento? evento;
@@ -39,35 +39,51 @@ class _EventoDialogState extends State<EventoDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            // Campo de texto para el título
             TextField(
               controller: tituloController,
               decoration: const InputDecoration(labelText: 'Título'),
             ),
-            Button<Color>(
-              value: color,
-              items: const [
-                 showDialog(
+            const SizedBox(height: 10),
+            // Botón para seleccionar el color
+            ElevatedButton(
+              onPressed: () {
+                // Abre el ColorPicker como popup
+                showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('Selecciona un color'),
+                      title: const Text('Selecciona un color'),
                       content: SingleChildScrollView(
                         child: ColorPickerScreen(
-                          onColorChanged: (color) {
-                            // Cambiar el color en el principal cuando se seleccione uno
+                          onColorChanged: (Color selectedColor) {
                             setState(() {
-                              currentColor = color;
+                              color = selectedColor; // Actualiza el color
                             });
                           },
                         ),
                       ),
-              ],
-              onChanged: (value) {
-                setState(() {
-                  color = value!;
-                });
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('Cerrar'),
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
+              child: const Text('Seleccionar Color'),
             ),
+            const SizedBox(height: 10),
+            // Muestra el color seleccionado
+            Container(
+              width: 50,
+              height: 50,
+              color: color,
+            ),
+            const SizedBox(height: 20),
+            // Selector de tipo de jornada
             DropdownButton<String>(
               value: tipoJornada,
               items: const [
@@ -83,6 +99,7 @@ class _EventoDialogState extends State<EventoDialog> {
               },
             ),
             if (tipoJornada != 'Vacio') ...[
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Expanded(
@@ -93,6 +110,7 @@ class _EventoDialogState extends State<EventoDialog> {
                       controller: TextEditingController(text: horaInicio.toString()),
                     ),
                   ),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: TextField(
                       keyboardType: TextInputType.number,
@@ -103,6 +121,7 @@ class _EventoDialogState extends State<EventoDialog> {
                   ),
                 ],
               ),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Expanded(
@@ -113,6 +132,7 @@ class _EventoDialogState extends State<EventoDialog> {
                       controller: TextEditingController(text: horaFin.toString()),
                     ),
                   ),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: TextField(
                       keyboardType: TextInputType.number,
