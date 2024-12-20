@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class ColorPickerScreen extends StatefulWidget {
+  final ValueChanged<Color> onColorChanged; // Callback para manejar el color seleccionado
+
+  ColorPickerScreen({required this.onColorChanged});
+
   @override
   _ColorPickerScreenState createState() => _ColorPickerScreenState();
 }
@@ -12,34 +16,14 @@ class _ColorPickerScreenState extends State<ColorPickerScreen> {
   // Función para cambiar el color
   void changeColor(Color color) {
     setState(() => pickerColor = color);
+    widget.onColorChanged(color); // Llama a la función pasada desde el widget principal
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Selecciona un color'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Mostrar el color actual en el picker
-            ColorPicker(
-              pickerColor: pickerColor,
-              onColorChanged: changeColor,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Regresa el color seleccionado al archivo principal
-                Navigator.pop(context, pickerColor);
-              },
-              child: Text('Seleccionar color'),
-            ),
-          ],
-        ),
-      ),
+    return ColorPicker(
+      pickerColor: pickerColor,
+      onColorChanged: changeColor,  // Actualiza el color al cambiarlo
     );
   }
 }
