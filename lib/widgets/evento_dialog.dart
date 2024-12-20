@@ -75,13 +75,6 @@ class _EventoDialogState extends State<EventoDialog> {
               },
               child: const Text('Seleccionar Color'),
             ),
-            const SizedBox(height: 10),
-            // Muestra el color seleccionado
-            Container(
-              width: 50,
-              height: 50,
-              color: color,
-            ),
             const SizedBox(height: 20),
             // Selector de tipo de jornada
             DropdownButton<String>(

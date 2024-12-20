@@ -4,7 +4,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 class ColorPickerScreen extends StatefulWidget {
   final ValueChanged<Color> onColorChanged; // Callback para manejar el color seleccionado
 
-  ColorPickerScreen({required this.onColorChanged});
+  const ColorPickerScreen({super.key, required this.onColorChanged});
 
   @override
   _ColorPickerScreenState createState() => _ColorPickerScreenState();
