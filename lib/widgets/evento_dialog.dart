@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/evento.dart';
+import '../utils/color_picker';
 
 class EventoDialog extends StatefulWidget {
   final Evento? evento;
