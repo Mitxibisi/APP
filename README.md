@@ -1,7 +1,7 @@
-# Calendario
+# EN DESARROLLO
 
-Proyecto local
+Proyecto local de calendario
 
-## Getting Started
+## V1.0.0
 
-La idea es terminar esto
+Está casi lista la aplicación solamente le faltaría cambiar las horas
