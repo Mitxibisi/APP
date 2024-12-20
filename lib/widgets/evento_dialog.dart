@@ -42,22 +42,24 @@ class _EventoDialogState extends State<EventoDialog> {
               controller: tituloController,
               decoration: const InputDecoration(labelText: 'Título'),
             ),
-            DropdownButton<Color>(
+            Button<Color>(
               value: color,
               items: const [
-                  DropdownMenuItem(value: Colors.blue, child: Text("Azul")),
-                  DropdownMenuItem(value: Colors.red, child: Text("Rojo")),
-                  DropdownMenuItem(value: Colors.green, child: Text("Verde")),
-                  DropdownMenuItem(value: Color.fromARGB(255, 255, 142, 221), child: Text("Rosita")),
-                  DropdownMenuItem(value: Colors.white, child: Text("Blanco")),
-                  DropdownMenuItem(value: Colors.purple, child: Text("Morado")),
-                  DropdownMenuItem(value: Colors.pink, child: Text("Rosa")),
-                  DropdownMenuItem(value: Colors.orange, child: Text("Naranja")),
-                  DropdownMenuItem(value: Colors.yellow, child: Text("Amarillo")),
-                  DropdownMenuItem(value: Colors.black, child: Text("Negro")),
-                  DropdownMenuItem(value: Colors.cyan, child: Text("Cyan")),
-                  DropdownMenuItem(value: Colors.amber, child: Text("Ambar")),
-                  DropdownMenuItem(value: Colors.brown, child: Text("Marron")),
+                 showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Selecciona un color'),
+                      content: SingleChildScrollView(
+                        child: ColorPickerScreen(
+                          onColorChanged: (color) {
+                            // Cambiar el color en el principal cuando se seleccione uno
+                            setState(() {
+                              currentColor = color;
+                            });
+                          },
+                        ),
+                      ),
               ],
               onChanged: (value) {
                 setState(() {
